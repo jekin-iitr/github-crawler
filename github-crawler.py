@@ -25,3 +25,6 @@ def getPage(url):
 def main():
     username = sys.argv[1]
     homepage = getPage('/' + username)
+    followers = getPage('/' + username + '/followers')
+    following = getPage('/' + username + '/following')
+    starred = getPage('/' + username + '/starred')
