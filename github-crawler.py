@@ -34,3 +34,22 @@ def main():
     starred = getPage('/' + username + '/starred')
 
     conn.close()
+
+    # parse homepage
+    print 'username:', username
+
+    start = homepage.find('itemprop="name"')
+    end = homepage[start:].find('<')
+    print '--Name:', homepage[(start+16) : (start+end)]
+
+    start = homepage.find('itemprop="worksFor"')
+    end = homepage[start:].find('<')
+    print '--Works for:', homepage[(start+20) : (start+end)]
+
+    start = homepage.find('itemprop="homeLocation"')
+    end = homepage[start:].find('<')
+    print '--Home Location:', homepage[(start+25) : (start+end)]
+
+    start = homepage.find('join-date')
+    end = homepage[start:].find('<')
+    print '--Joined on:', homepage[(start+11) : (start+end)]
