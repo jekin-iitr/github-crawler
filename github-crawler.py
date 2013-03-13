@@ -48,7 +48,7 @@ def main():
 
     start = homepage.find('itemprop="homeLocation"')
     end = homepage[start:].find('<')
-    print '--Home Location:', homepage[(start+25) : (start+end)]
+    print '--Home Location:', homepage[(start+24) : (start+end)]
 
     start = homepage.find('join-date')
     end = homepage[start:].find('<')
