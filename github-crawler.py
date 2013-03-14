@@ -16,6 +16,7 @@ following = ''
 starred = ''
 
 
+# fetch page from github
 def getPage(url):
     global conn
     conn.request('GET', url)
@@ -25,7 +26,7 @@ def getPage(url):
     if response.status == 200:
         return response.read()
     else:
-        print 'Error retrieving page from github'
+        print 'Error retrieving page %s'%url, 'from github'
         return
 # end getPage()
 
@@ -51,14 +52,15 @@ def parseHomePage():
 # end parseHomePage()
 
 
-# return users followers count
-def getFollowersCount():
-    temp = homepage.find('followers')
+# return followers, following and stars count
+# @what => followers | following | stars
+def getCount(what):
+    temp = homepage.find(what)
     f1 = homepage[temp:]
     start = f1.find('<')
     end = f1.find('</')
     return int(f1[(start+8) : end])
-# end getFollowersCount()
+# end getCount()
 
 
 def main():
@@ -79,7 +81,9 @@ def main():
     print username
     parseHomePage()
 
-    followersCount = def getFollowersCount()
+    followersCount = getCount('followers')
+    followingCount = getCount('following')
+    starsCount = getCount('stars')
 
 
 if __name__ == '__main__':
