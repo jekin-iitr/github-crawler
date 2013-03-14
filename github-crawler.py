@@ -9,6 +9,13 @@ import sys
 # global connection object
 conn=''
 
+# variables holding different pages as strings
+homepage = ''
+followers = ''
+following = ''
+starred = ''
+
+
 def getPage(url):
     global conn
     conn.request('GET', url)
@@ -27,6 +34,8 @@ def main():
     global conn
     conn = HTTPSConnection('github.com')
 
+    global homepage, followers, following, starred
+
     username = sys.argv[1]
     homepage = getPage('/' + username)
     followers = getPage('/' + username + '/followers')
@@ -36,7 +45,7 @@ def main():
     conn.close()
 
     # parse homepage
-    print 'username:', username
+    print username
     format = '%' + str(len(username)/2) + 's'
 
     start = homepage.find('itemprop="name"')
