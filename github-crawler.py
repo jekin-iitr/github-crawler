@@ -30,6 +30,16 @@ def getPage(url):
 # end getPage()
 
 
+# return users followers count
+def getFollowersCount():
+    temp = homepage.find('followers')
+    f1 = homepage[temp:]
+    start = f1.find('<')
+    end = f1.find('</')
+    return int(f1[(start+8) : end])
+# end getFollowersCount()
+
+
 def main():
     global conn
     conn = HTTPSConnection('github.com')
@@ -63,6 +73,8 @@ def main():
     start = homepage.find('join-date')
     end = homepage[start:].find('<')
     print (format + '|__ Joined on:')%' ', homepage[(start+11) : (start+end)]
+
+    followersCount = def getFollowersCount()
 
 
 if __name__ == '__main__':
