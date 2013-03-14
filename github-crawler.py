@@ -30,6 +30,27 @@ def getPage(url):
 # end getPage()
 
 
+def parseHomePage():
+    format = '%' + str(len(username)/2) + 's'
+
+    start = homepage.find('itemprop="name"')
+    end = homepage[start:].find('<')
+    print (format + '|__ Name:')%' ', homepage[(start+16) : (start+end)]
+
+    start = homepage.find('itemprop="worksFor"')
+    end = homepage[start:].find('<')
+    print (format + '|__ Works for:')%' ', homepage[(start+20) : (start+end)]
+
+    start = homepage.find('itemprop="homeLocation"')
+    end = homepage[start:].find('<')
+    print (format + '|__ Home Location:')%' ', homepage[(start+24) : (start+end)]
+
+    start = homepage.find('join-date')
+    end = homepage[start:].find('<')
+    print (format + '|__ Joined on:')%' ', homepage[(start+11) : (start+end)]
+# end parseHomePage()
+
+
 # return users followers count
 def getFollowersCount():
     temp = homepage.find('followers')
@@ -56,23 +77,7 @@ def main():
 
     # parse homepage
     print username
-    format = '%' + str(len(username)/2) + 's'
-
-    start = homepage.find('itemprop="name"')
-    end = homepage[start:].find('<')
-    print (format + '|__ Name:')%' ', homepage[(start+16) : (start+end)]
-
-    start = homepage.find('itemprop="worksFor"')
-    end = homepage[start:].find('<')
-    print (format + '|__ Works for:')%' ', homepage[(start+20) : (start+end)]
-
-    start = homepage.find('itemprop="homeLocation"')
-    end = homepage[start:].find('<')
-    print (format + '|__ Home Location:')%' ', homepage[(start+24) : (start+end)]
-
-    start = homepage.find('join-date')
-    end = homepage[start:].find('<')
-    print (format + '|__ Joined on:')%' ', homepage[(start+11) : (start+end)]
+    parseHomePage()
 
     followersCount = def getFollowersCount()
 
