@@ -81,7 +81,29 @@ def printFollowers(count):
         print format%' ', '  ', i + 1, '\b.', followers[(aTagStart+10) : aTagEnd], followers[(em+4) : (emE)]
 
         followers = followers[emE:]
-# end getFollowers()
+# end printFollowers()
+
+
+def printFollowing(count):
+    global following
+
+    print (format + '|__ Following:')%' ', count
+    temp = following.find(' Following')
+    following = following[(temp + 1):]
+    temp = following.find(' Following')
+    following = following[(temp+1):]
+
+    for i in range(count):
+        temp = following.find('<li>')
+        following = following[temp:]
+        aTagStart = following.find('<a')
+        aTagEnd = following.find('"><')
+        em = following.find('<em>')
+        emE = following.find('</em>')
+        print format%' ', '  ', i + 1, '\b.', following[(aTagStart+10) : aTagEnd], following[(em+4) : (emE)]
+
+        following = following[emE:]
+# end printFollowing()
 
 
 def main():
@@ -109,6 +131,7 @@ def main():
     starsCount = getCount('stars')
 
     printFollowers(followersCount)
+    printFollowing(followingCount)
 # end main()
 
 
