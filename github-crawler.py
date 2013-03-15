@@ -14,6 +14,7 @@ homepage = ''
 followers = ''
 following = ''
 starred = ''
+format = ''
 
 
 # fetch page from github
@@ -32,8 +33,6 @@ def getPage(url):
 
 
 def parseHomePage():
-    format = '%' + str(len(username)/2) + 's'
-
     start = homepage.find('itemprop="name"')
     end = homepage[start:].find('<')
     print (format + '|__ Name:')%' ', homepage[(start+16) : (start+end)]
@@ -63,6 +62,28 @@ def getCount(what):
 # end getCount()
 
 
+def printFollowers(count):
+    global followers
+
+    print (format + '|__ Followers:')%' ', count
+    temp = followers.find('Followers')
+    followers = followers[(temp + 1):]
+    temp = followers.find('Followers')
+    followers = followers[(temp+1):]
+
+    for i in range(count):
+        temp = followers.find('<li>')
+        followers = followers[temp:]
+        aTagStart = followers.find('<a')
+        aTagEnd = followers.find('"><')
+        em = followers.find('<em>')
+        emE = followers.find('</em>')
+        print format%' ', '  ', i + 1, '\b.', followers[(aTagStart+10) : aTagEnd], followers[(em+4) : (emE)]
+
+        followers = followers[emE:]
+# end getFollowers()
+
+
 def main():
     global conn
     conn = HTTPSConnection('github.com')
@@ -77,6 +98,8 @@ def main():
 
     conn.close()
 
+    format = '%' + str(len(username)/2) + 's'
+
     # parse homepage
     print username
     parseHomePage()
@@ -84,6 +107,9 @@ def main():
     followersCount = getCount('followers')
     followingCount = getCount('following')
     starsCount = getCount('stars')
+
+    printFollowers(followersCount)
+# end main()
 
 
 if __name__ == '__main__':
