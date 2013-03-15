@@ -106,6 +106,21 @@ def printFollowing(count):
 # end printFollowing()
 
 
+def printStarredRepos(count):
+    global following
+
+    print (format + '|__ Starred Repos:')%' ', count
+    for i in range(count):
+        temp = following.find('<li')
+        following = following[temp:]
+        aTagStart = following.find('<a')
+        aTagEnd = following.find('" class')
+        print (format+'|')%' ', '  ', i + 1, '\b.', following[(aTagStart+10) : aTagEnd]
+
+        following = following[(aTagEnd+1):]
+# end printStarredRepos()
+
+
 def main():
     global conn
     conn = HTTPSConnection('github.com')
@@ -130,8 +145,12 @@ def main():
     followingCount = getCount('following')
     starsCount = getCount('stars')
 
+    print (format + '|')%' '
     printFollowers(followersCount)
+    print (format + '|')%' '
     printFollowing(followingCount)
+    print (format + '|')%' '
+    printStarredRepos(starsCount)
 # end main()
 
 
