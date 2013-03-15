@@ -121,6 +121,43 @@ def printStarredRepos(count):
 # end printStarredRepos()
 
 
+def printRepos(username):
+    # TODO
+    # if repo is empty or forked
+    global homepage
+
+    print
+    print username, '\b\'s Repositories'
+
+    start = homepage.find('class="public')
+    while not (start == -1):
+        homepage = homepage[start:]
+
+        temp1 = homepage.find('<li')
+        temp2 = homepage.find('</li>')
+        language = homepage[(temp1+4) : temp2]
+
+        temp1 = homepage.find('<h3>')
+        homepage = homepage[(temp1+1):]
+        temp1 = homepage.find('<a')
+        homepage = homepage[temp1:]
+        temp1 = homepage.find('">')
+        temp2 = homepage.find('</a>')
+        name = homepage[(temp1 + 2) : temp2]
+
+        temp1 = homepage.find('<p')
+        temp2 = homepage.find('</p>')
+        description = homepage[(temp1+23) : temp2]
+
+        print 'Name:', name
+        print 'Language:', language
+        print 'Description:', description
+
+        homepage = homepage[temp2:]
+        start = homepage.find('class="public')
+# end printRepos()
+
+
 def main():
     global conn
     conn = HTTPSConnection('github.com')
